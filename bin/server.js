@@ -6,11 +6,17 @@ var AtosSIPS = require('../'),
 var http = require('http');
 
 http.createServer(function (req, res) {
-    if (req.url === '/return') {
-        sips.response(req.body.data, function (err, data) {
-            console.log(err, data);
+    if (req.url === '/return' && req.method === 'POST') {
+        var buffer = '';
+        req.on('data', function (chunk) {
+            buffer += chunk.toString();
         });
-    } else {
+        req.on('end', function () {
+            sips.response(buffer.replace('DATA=', ''), function (err, data) {
+                console.log(err, data);
+            });
+        });
+    } else if (req.url === '/') {
         sips.request({
             merchant_id: '013044876511112',
             amount: '100',
@@ -24,4 +30,4 @@ http.createServer(function (req, res) {
             res.end(data);
         });
     }
-}).listen(1337, '127.0.0.1');
+}).listen(1337);
