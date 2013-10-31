@@ -15,6 +15,9 @@
     "url": "https://github.com/godezinc/sips-atos.git"
   },
   "dependencies": {
+    "express": "~3.4.4",
+    "connect": "~2.11.0",
+    "hbs": "~2.4.0"
   },
   "analyze": true,
   "devDependencies": {
@@ -23,7 +26,9 @@
     "istanbul": "~0.1.44"
   },
   "license": "MIT License",
-  "os": ["linux"],
+  "os": [
+    "linux"
+  ],
   "engines": {
     "node": ">=0.10"
   }
