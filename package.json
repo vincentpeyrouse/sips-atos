@@ -1,6 +1,6 @@
 {
   "name": "sips-atos",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Vincent PEYROUSE <vincent.peyrouse@gmail.com>",
   "description": "SIPS/ATOS online payments API for node.js",
   "contributors": [],
@@ -27,7 +27,8 @@
   },
   "license": "MIT License",
   "os": [
-    "linux"
+    "linux",
+    "windows"
   ],
   "engines": {
     "node": ">=0.10"

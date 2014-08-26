@@ -1,7 +1,8 @@
 /*jslint node: true es5:true nomen:true*/
 
 var express = require('express'),
-    http = require('http');
+    http = require('http'),
+    path = require('path');
 
 var app = express();
 
