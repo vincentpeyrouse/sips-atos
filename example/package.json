@@ -1,25 +1,24 @@
 {
-  "name": "sips-atos",
-  "version": "2.0.0",
+  "name": "sips-atos-example",
+  "version": "1.0.0",
   "author": "Vincent PEYROUSE <vincent.peyrouse@gmail.com>",
   "description": "SIPS/ATOS online payments API for node.js",
   "contributors": [],
-  "main": "./atos.js",
+  "main": "./lib/atos.js",
   "scripts": {
-    "test": "mocha",
-    "coverage": "istanbul cover _mocha -v --print -- -R nyan"
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/godezinc/sips-atos.git"
   },
   "dependencies": {
+    "express": "~3.4.4",
+    "connect": "~2.11.0",
+    "hbs": "~2.4.0"
   },
   "analyze": true,
   "devDependencies": {
-    "mocha": "~1.13.0",
-    "should": "~2.0.2",
-    "istanbul": "~0.1.44"
   },
   "license": "MIT License",
   "os": [

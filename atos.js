@@ -11,7 +11,7 @@ function AtosSIPS(options) {
     
     this.paths = {};
     
-    this.paths.root = options.rootPath || path.join(__dirname, '..', 'config');
+    this.paths.root = options.rootPath || path.join(__dirname, 'config');
     if (platform === 'linux') {
         this.paths.request = options.requestPath || path.join(this.paths.root, 'bin', 'request');
         this.paths.response = options.responsePath || path.join(this.paths.root, 'bin', 'response');
@@ -37,7 +37,7 @@ AtosSIPS.prototype.request = function (data, callback) {
     if (data === null || callback === undefined) {
         throw new Error('missing arg(s) for request method');
     }
-    var requiredArgs = ['merchant_id', 'amount', 'customer_id'];
+    var requiredArgs = ['merchant_id', 'amount', 'customer_id', 'cancel_return_url', 'normal_return_url', 'automatic_response_url'];
     
     requiredArgs.forEach(function (requiredArg) {
         if (!data.hasOwnProperty(requiredArg)) {

@@ -1,13 +1,16 @@
 /*jslint node: true es5:true*/
 'use strict';
 
-var AtosSIPS = require('../atos'),
-    sips = new AtosSIPS();
+var path = require('path'),
+    AtosSIPS = require('../atos'),
+    sips = new AtosSIPS({
+        rootPath: path.join(__dirname, 'config')
+    });
 
 module.exports = function (app) {
     app.get('/', function (req, res, next) {
         sips.request({
-            merchant_id: '011223344551111',
+            merchant_id: '011223344551111', // Demo merchant id
             amount: '100',
             customer_id: '1',
             cancel_return_url: 'http://127.0.0.1:1337/return',
