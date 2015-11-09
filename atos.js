@@ -6,11 +6,11 @@ var platform = require('os').platform(),
 
 function AtosSIPS(options) {
     'use strict';
-    
+
     options = options || {};
-    
+
     this.paths = {};
-    
+
     this.paths.root = options.rootPath || path.join(__dirname, 'config');
     if (platform === 'linux') {
         this.paths.request = options.requestPath || path.join(this.paths.root, 'bin', 'request');
@@ -23,7 +23,7 @@ function AtosSIPS(options) {
     } else {
         throw new Error('sips-atos is only compatible with Linux and Windows at the moment');
     }
-    
+
     // Some cleaning
     this.paths.root = path.normalize(this.paths.root);
     this.paths.request = path.normalize(this.paths.request);
@@ -33,38 +33,38 @@ function AtosSIPS(options) {
 
 AtosSIPS.prototype.request = function (data, callback) {
     'use strict';
-    
+
     if (data === null || callback === undefined) {
         throw new Error('missing arg(s) for request method');
     }
     var requiredArgs = ['merchant_id', 'amount', 'customer_id', 'cancel_return_url', 'normal_return_url', 'automatic_response_url'];
-    
+
     requiredArgs.forEach(function (requiredArg) {
         if (!data.hasOwnProperty(requiredArg)) {
             throw new Error(requiredArg + ' is required for request method');
         }
     });
-    
+
     // Default parameters if nothing given
     data.merchant_country = data.merchant_country || 'fr';
     data.language = data.language || 'fr';
     data.currency_code = data.currency_code || '978';
     data.pathfile = this.paths.pathfile;
-    
+
     var args = '',
         key = null,
         value = null;
-    
+
     for (key in data) {
         if (data.hasOwnProperty(key)) {
             value = data[key];
-            args = args + key + '=' + value + ' ';
+            args = args + key + '="' + value + '" ';
         }
     }
-    
+
     exec(this.paths.request + ' ' + args, function (err, stdout, stderr) {
         var result = stdout.split('!');
-        
+
         if (result[1] === undefined) {
             // Binary not found
             return callback('AtosSIPS request binary not found', null);
@@ -79,7 +79,7 @@ AtosSIPS.prototype.request = function (data, callback) {
 
 function parseResult(result) {
     'use strict';
-    
+
     return {
         code: result[1],
         error: result[2],
@@ -118,7 +118,7 @@ function parseResult(result) {
 
 AtosSIPS.prototype.response = function (data, callback) {
     'use strict';
-    
+
     exec(this.paths.response + ' pathfile=' + this.paths.pathfile + ' message=' + data, function (err, stdout, stderr) {
         var result = parseResult(stdout.split('!'));
         if (result.code === undefined) {
