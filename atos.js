@@ -2,7 +2,8 @@
 
 var platform = require('os').platform(),
     exec = require('child_process').exec,
-    path = require('path');
+    path = require('path'),
+    tools = require('./lib/tools.js');
 
 function AtosSIPS(options) {
     'use strict';
@@ -58,6 +59,9 @@ AtosSIPS.prototype.request = function (data, callback) {
     for (key in data) {
         if (data.hasOwnProperty(key)) {
             value = data[key];
+            if (typeof value === 'string') {
+              value = tools.removeDoubleQuotes(tools.removeDiacritics(value));
+            }
             args = args + key + '="' + value + '" ';
         }
     }
